@@ -28,8 +28,8 @@
          <!-- Start Content -->
     <div class="container py-5">
         <div class="row">
-
-            <div class="col-lg-3">
+            <!--Mostrar las categorias para filtrar los productos-->
+            <div class="col-lg-2">
                 <h1 class="h2 pb-4">Categorías</h1>
                 <ul class="list-unstyled" id="categorias">
                     <li class="pb-3">
@@ -52,11 +52,11 @@
                   categoriasContainer.appendChild(li);
                 });
             </script>
-
-            <div class="col-lg-9">
+            
+            <!--Inicio Mostrar los productos y la paginacion-->
+            <div class="col-lg-7">
                 <div class="row" id="productos">
                 </div>
-                <!--Mostrar los productos-->
                 <script>
                     // Obtener el parametro de la url
                     const urlParams = new URLSearchParams(window.location.search);
@@ -74,9 +74,8 @@
                               <img class="card-img rounded-0 img-fluid" src="${producto.imagen}">
                               <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                  <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-heart"></i></a></li>
                                   <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                  <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                  <li><a class="btn btn-success text-white mt-2 btn-add" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                               </div>
                             </div>
@@ -89,6 +88,11 @@
                           </div>
                         `;
                         productosContainer.appendChild(col);
+
+                        col.querySelector(".btn-add").addEventListener('click', (e) => {
+                          e.preventDefault(); // Evita navegación si hay href
+                          agregarProducto(producto);
+                        });
                       });
                       
                   </script>
@@ -109,6 +113,22 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <!--Fin Mostrar los productos y la paginacion-->
+
+            <!--Inicio de Carrito de compras-->
+            <div class="col-lg-3 bg-light p-5">
+              <h3 class="h3 pb-2">Carrito de Compras</h3>
+              <!--Precio total-->
+              <p class="text-right pb-2">Total: $ <span id="total"></span></p>
+              <!--productos en el carrito-->
+              <ul id="carrito" class="list-group"></ul>
+            
+              <!--  -->
+              <div id="boton-vaciar" class="btn btn-danger text-decoration-none" onclick="vaciarCarrito()">Vaciar</div>
+              <div class="btn btn-success text-decoration-none" id="boton-pagar">
+                <a class="text-decoration-none btn-success text-white" href="pago.html" target="_blank">Pagar</a>
+              </div>
             </div>
 
         </div>
