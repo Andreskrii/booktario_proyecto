@@ -23,8 +23,15 @@ function obtenerBanners() {
 }
 
 // Devolver la lista de productos almacenados en el localStorage
-function obtenerProductos() {
+function obtenerProductos(categoria = "todos") {
     const productos = JSON.parse(localStorage.getItem("productos")) || {};
-    return Object.values(productos);
+    //return Object.values(productos);
+    let producto = [];
+    if (categoria === "todos") {
+        producto = Object.values(productos);
+    } else {
+        producto = Object.values(productos).filter(prod => prod.categoria === categoria);
+    }
+    return producto;
 }
 

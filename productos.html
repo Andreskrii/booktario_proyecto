@@ -29,9 +29,13 @@
     <div class="container py-5">
         <div class="row">
 
-            <div class="col-lg-3" id="categorias">
-                <h1 class="h2 pb-4">Categories</h1>
-                <ul class="list-unstyled templatemo-accordion">
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categorías</h1>
+                <ul class="list-unstyled" id="categorias">
+                    <li class="pb-3">
+                      <!--<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="productos.html?categoria=libros">Libros</a>-->
+                      <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="productos.html?categoria=todos">Todos</a>
+                    </li>
                 </ul>
             </div>
             <script>
@@ -41,8 +45,9 @@
                   const li = document.createElement('li');
                   li.className = 'pb-3';
                   li.innerHTML = `
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">${categoria.nombre}
-                      <i class="fa fa-fw fa-chevron-circle-down mt-1"></i></a>
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" 
+                    href="productos.html?categoria=${categoria.codigo}">${categoria.nombre}
+                  </a>
                   `;
                   categoriasContainer.appendChild(li);
                 });
@@ -51,8 +56,14 @@
             <div class="col-lg-9">
                 <div class="row" id="productos">
                 </div>
+                <!--Mostrar los productos-->
                 <script>
-                    const productos = obtenerProductos();
+                    // Obtener el parametro de la url
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const categoria = urlParams.get('categoria');
+
+
+                    const productos = obtenerProductos(categoria);
                     const productosContainer = document.getElementById('productos');
                     productos.forEach(producto => {
                         const col = document.createElement('div');
