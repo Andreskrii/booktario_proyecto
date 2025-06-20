@@ -21,3 +21,10 @@ function obtenerBanners() {
   const map = obtenerMap("banners");
   return map.values();
 }
+
+// Devolver la lista de productos almacenados en el localStorage
+function obtenerProductos() {
+    const productos = JSON.parse(localStorage.getItem("productos")) || {};
+    return Object.values(productos);
+}
+
