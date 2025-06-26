@@ -11,10 +11,11 @@ function obtenerMap(nombre) {
 }
 
 // Devolver la lista de categorias almacenadas en el localStorage
-function  obtenerCategorias() {
-    const map = obtenerMap("categorias");
-    return map.values();
+function obtenerCategorias() {
+  const map = obtenerMap("categorias");
+  return Array.from(map.values());
 }
+
 
 // Devolver la lista de banners almacenados en el localStorage
 function obtenerBanners() {
@@ -57,16 +58,17 @@ function mostrarCarrito() {
       const li = document.createElement("li");
       li.className = "list-group-item d-flex justify-content-between mb-2";
       li.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="row">
-            <h6 class="my-0">${productos.titulo}</h6>
-            <small>${productos.precio}</small>
-          </div>
-          <a class="btn btn-danger text-decoration-none text-white" href="#" onclick="eliminarProducto(${posicion})">
-            <i class="fas fa-times"></i>
-          </a>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="row">
+          <h6 class="my-0">${productos.titulo}</h6>
+          <small>${productos.precio}</small>
         </div>
+        <a class="btn btn-danger text-decoration-none text-white" href="#" onclick="eliminarProducto(${posicion})">
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
       `;
+
       carritoContainer.appendChild(li);
       precio += productos.precio; // precio = precio + curso.precio;
     });
@@ -75,14 +77,15 @@ function mostrarCarrito() {
   }
 
   // Agregar un producto al carrito de compras
-function agregarProducto(producto) {
+function agregarProducto(producto, actualizarCarrito = true) {
     let carrito = obtenerCarrito();
     carrito.push(producto);
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
-    mostrarCarrito();
+    if (actualizarCarrito === true) {
+        mostrarCarrito();
   }
-  
-  // Eliminar un curso del carrito de compras
+}
+  // Eliminar un producto del carrito de compras
   function eliminarProducto(index) {
     let carrito = obtenerCarrito();
     carrito.splice(index, 1);
@@ -96,3 +99,14 @@ function agregarProducto(producto) {
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
     mostrarCarrito();
   }
+
+// Función para obtener producto por código
+
+function obtenerProductoPorCodigo(codigo) {
+  const productos = obtenerProductos();
+  const producto = productos.find((prod) => prod.codigo === codigo);
+  if (!producto) {
+    throw new Error(`No se encontró el producto con el código: ${codigo}`);
+  }
+  return producto;
+}

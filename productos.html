@@ -45,10 +45,10 @@
                   const li = document.createElement('li');
                   li.className = 'pb-3';
                   li.innerHTML = `
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" 
-                    href="productos.html?categoria=${categoria.codigo}">${categoria.nombre}
-                  </a>
+                  <a class="collapsed d-flex justify-content-between h3 text-decoration-none" 
+                  href="productos.html?categoria=${categoria.codigo}">${categoria.nombre}</a>
                   `;
+
                   categoriasContainer.appendChild(li);
                 });
             </script>
@@ -74,7 +74,7 @@
                               <img class="card-img rounded-0 img-fluid" src="${producto.imagen}">
                               <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                  <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                  <li><a class="btn btn-success text-white mt-2" href="detalles_producto.html?codigoProducto=${producto.codigo}"><i class="far fa-eye"></i></a></li>
                                   <li><a class="btn btn-success text-white mt-2 btn-add" href="#"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                               </div>
@@ -130,7 +130,9 @@
                 <a class="text-decoration-none btn-success text-white" href="pago.html" target="_blank">Pagar</a>
               </div>
             </div>
-
+            <script>
+              mostarCarrito();
+            </script>
         </div>
     </div>
     <!-- End Content -->
